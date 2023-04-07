@@ -12,10 +12,10 @@ template<typename T> class NDArray {
 	bool checking_boundaries(const int X, const int Y) { return (X < Shape[0] && X > -1 && Y < Shape[1] && Y > -1); }
 public:
 	NDArray(const int X, const int Y = 1) {
-		for (int i = 0; i < X * Y; i++) elements.push_back(NULL);
 		Shape[0] = X;
 		Shape[1] = Y;
 		Len = X * Y;
+		for (int i = 0; i < Len; i++) elements.push_back(0);
 	}
 	int shape(int index) { return Shape[index]; }
 	int len() { return Len; }
@@ -61,15 +61,18 @@ public:
 	}
 	NDArray operator += (NDArray value) {
 		if (Shape[0] != value.Shape[0] or Shape[1] != value.Shape[1]) throw error();
-		for (int i = 0; i < Len; i++) elements[i] += value.elements[i]; return *this;
+		for (int i = 0; i < Len; i++) { elements[i] += value.elements[i]; }
+		return *this;
 	}
 	NDArray operator -= (NDArray value) {
 		if (Shape[0] != value.Shape[0] or Shape[1] != value.Shape[1]) throw error();
-		for (int i = 0; i < Len; i++) elements[i] -= value.elements[i]; return *this;
+		for (int i = 0; i < Len; i++) { elements[i] -= value.elements[i]; }
+		return *this;
 	}
 	NDArray operator *= (NDArray value) {
 		if (Shape[0] != value.Shape[0] or Shape[1] != value.Shape[1]) throw error();
-		for (int i = 0; i < Len; i++) elements[i] *= value.elements[i]; return *this;
+		for (int i = 0; i < Len; i++) { elements[i] *= value.elements[i]; }
+		return *this;
 	}
 	NDArray operator /= (NDArray value) {
 		if (value.Len == 0 or Shape[0] != value.Shape[0] or Shape[1] != value.Shape[1]) throw error();
