@@ -16,4 +16,4 @@ clean:
 	$(RM) $(TARGET)
 
 run: all
-	$(TARGET)
+	./$(TARGET)
